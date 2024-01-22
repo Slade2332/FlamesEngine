@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -424,12 +424,15 @@
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="FlamesEngine.cpp" />
+    <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlamesEngine.fx" />
   </ItemGroup>
   <ItemGroup>
-    <CLInclude Include="resource.h" />
+    <ClInclude Include="include\Prerequisites.h" />
+    <ClInclude Include="include\Resource.h" />
+    <ClInclude Include="include\Window.h" />
     <ResourceCompile Include="FlamesEngine.rc" />
   </ItemGroup>
   <ItemGroup>
