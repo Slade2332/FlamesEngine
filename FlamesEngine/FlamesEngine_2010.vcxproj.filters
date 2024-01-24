@@ -15,9 +15,15 @@
     <Filter Include="Include">
       <UniqueIdentifier>{0f7d5e36-f90a-4f3a-b898-440878c80c7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{e7a6e1f9-b75a-4be7-aa2f-784344eead07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Device.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlamesEngine.cpp" />
@@ -40,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Resource.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Device.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
