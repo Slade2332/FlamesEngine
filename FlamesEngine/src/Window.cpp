@@ -41,12 +41,13 @@ HRESULT Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc)
         m_rect.bottom - m_rect.top,
         nullptr,
         nullptr,
-        hInstance,
+        m_hInst,
         nullptr);
     if (!m_hWnd)
         return E_FAIL;
 
     ShowWindow(m_hWnd, nCmdShow);
+
     GetClientRect(m_hWnd, &m_rect);
     m_width = m_rect.right - m_rect.left;
     m_height = m_rect.bottom - m_rect.top;
@@ -54,14 +55,17 @@ HRESULT Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc)
     return S_OK;
 }
 
-void Window::update()
+void
+Window::update()
 {
 }
 
-void Window::render()
+void
+Window::render()
 {
 }
 
-void Window::destroy()
+void
+Window::destroy()
 {
 }
