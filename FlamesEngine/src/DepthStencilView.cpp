@@ -13,26 +13,27 @@ DepthStencilView::init(Device device, ID3D11Resource* depthStencil, DXGI_FORMAT 
 		exit(1);
 	}
 	else {
-
+		// Configurar la descripción de la vista de profundidad y stencil
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 		memset(&descDSV, 0, sizeof(descDSV));
-		descDSV.Format = format;
-		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-		descDSV.Texture2D.MipSlice = 0;
-		device.CreateDepthStencilView(depthStencil, &descDSV, &m_depthStencilView);
+		descDSV.Format = format; // Establecer el formato
+		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D; // Establecer la dimensión de la vista
+		descDSV.Texture2D.MipSlice = 0; // Establecer el nivel mip
+		device.CreateDepthStencilView(depthStencil, &descDSV, &m_depthStencilView); // Crear la vista de profundidad y stencil
 	}
 }
 
 void
 DepthStencilView::update() {
+	// Función vacía de actualización
 }
 
 void
 DepthStencilView::render(DeviceContext& deviceContext) {
-	deviceContext.ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	deviceContext.ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0); // Limpiar la vista de profundidad y stencil
 }
 
 void
 DepthStencilView::destroy() {
-	SAFE_RELEASE(m_depthStencilView);
+	SAFE_RELEASE(m_depthStencilView); // Liberar la vista de profundidad y stencil
 }

@@ -18,6 +18,7 @@ void Texture::init(Device device, std::string textureName)
         WARNING("ERROR: Texture::init : Error in data from params [CHECK FOR Device device]\n");
         exit(1);
     }
+    // Cargar textura desde archivo de imagen
     HRESULT hr = S_OK;
     hr = D3DX11CreateShaderResourceViewFromFile(device.m_device,
         textureName.c_str(),
@@ -44,8 +45,9 @@ void Texture::init(Device device,
         WARNING("ERROR: Texture::init : Error in data from params [CHECK FOR unsigned int width OR unsigned int height, ]\n");
         exit(1);
     }
-    HRESULT hr = S_OK;
 
+    // Crear textura en blanco
+    HRESULT hr = S_OK;
     D3D11_TEXTURE2D_DESC desc;
     memset(&desc, 0, sizeof(desc));
     desc.Width = width;
@@ -56,15 +58,12 @@ void Texture::init(Device device,
     desc.SampleDesc.Count = 1;
     desc.SampleDesc.Quality = 0;
     desc.Usage = D3D11_USAGE_DEFAULT;
-    //BindFlag Determina que tipo de textura es
     desc.BindFlags = BindFlags;
     desc.CPUAccessFlags = 0;
     desc.MiscFlags = 0;
 
-    if (BindFlags == D3D11_BIND_DEPTH_STENCIL) {
-        hr = device.CreateTexture2D(&desc, nullptr, &m_texture);
-    }
-    else if (BindFlags == D3D11_BIND_RENDER_TARGET) {
+    // Crear textura según los parámetros proporcionados
+    if (BindFlags == D3D11_BIND_DEPTH_STENCIL || BindFlags == D3D11_BIND_RENDER_TARGET) {
         hr = device.CreateTexture2D(&desc, nullptr, &m_texture);
     }
 
@@ -77,12 +76,13 @@ void Texture::init(Device device,
         exit(1);
     }
 }
-void
-Texture::render(DeviceContext& deviceContext, unsigned int StarSlot) {
+
+void Texture::render(DeviceContext& deviceContext, unsigned int StartSlot) {
     if (m_textureFromImg != nullptr) {
+        // Asignar la textura de la imagen al shader
         ID3D11ShaderResourceView* nullSRV[] = { nullptr };
-        deviceContext.PSSetShaderResources(StarSlot, 1, nullSRV);
-        deviceContext.PSSetShaderResources(StarSlot, 1, &m_textureFromImg);
+        deviceContext.PSSetShaderResources(StartSlot, 1, nullSRV);
+        deviceContext.PSSetShaderResources(StartSlot, 1, &m_textureFromImg);
     }
 }
 
