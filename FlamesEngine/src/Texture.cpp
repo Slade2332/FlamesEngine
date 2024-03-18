@@ -4,21 +4,25 @@
 
 Texture::~Texture()
 {
+    /*
     if (m_texture != nullptr) {
         SAFE_RELEASE(m_texture);
     }
     else if (m_textureFromImg != nullptr) {
         SAFE_RELEASE(m_textureFromImg);
-    }
+    }*/
 }
 
+// Inicializa la textura desde un archivo de imagen.Crea una vista de recurso
+//  (ID3D11ShaderResourceView) a partir de un archivo de imagen 
+// especificado (textureName).
+//Tambien se asegura de que el device no sea nulo y maneja los errores.
 void Texture::init(Device device, std::string textureName)
 {
     if (device.m_device == nullptr) {
         WARNING("ERROR: Texture::init : Error in data from params [CHECK FOR Device device]\n");
         exit(1);
     }
-    // Cargar textura desde archivo de imagen
     HRESULT hr = S_OK;
     hr = D3DX11CreateShaderResourceViewFromFile(device.m_device,
         textureName.c_str(),
@@ -32,6 +36,9 @@ void Texture::init(Device device, std::string textureName)
     }
 }
 
+//Inicializa la textura con parametros especificos como ancho, alto, formato, etc. 
+//Se crea una textura 2D
+//Maneja los errores
 void Texture::init(Device device,
     unsigned int width,
     unsigned int height,
@@ -45,9 +52,8 @@ void Texture::init(Device device,
         WARNING("ERROR: Texture::init : Error in data from params [CHECK FOR unsigned int width OR unsigned int height, ]\n");
         exit(1);
     }
-
-    // Crear textura en blanco
     HRESULT hr = S_OK;
+
     D3D11_TEXTURE2D_DESC desc;
     memset(&desc, 0, sizeof(desc));
     desc.Width = width;
@@ -62,8 +68,10 @@ void Texture::init(Device device,
     desc.CPUAccessFlags = 0;
     desc.MiscFlags = 0;
 
-    // Crear textura según los parámetros proporcionados
-    if (BindFlags == D3D11_BIND_DEPTH_STENCIL || BindFlags == D3D11_BIND_RENDER_TARGET) {
+    if (BindFlags == D3D11_BIND_DEPTH_STENCIL) {
+        hr = device.CreateTexture2D(&desc, nullptr, &m_texture);
+    }
+    else if (BindFlags == D3D11_BIND_RENDER_TARGET) {
         hr = device.CreateTexture2D(&desc, nullptr, &m_texture);
     }
 
@@ -76,13 +84,12 @@ void Texture::init(Device device,
         exit(1);
     }
 }
-
-void Texture::render(DeviceContext& deviceContext, unsigned int StartSlot) {
+void
+Texture::render(DeviceContext& deviceContext, unsigned int StarSlot) {
     if (m_textureFromImg != nullptr) {
-        // Asignar la textura de la imagen al shader
         ID3D11ShaderResourceView* nullSRV[] = { nullptr };
-        deviceContext.PSSetShaderResources(StartSlot, 1, nullSRV);
-        deviceContext.PSSetShaderResources(StartSlot, 1, &m_textureFromImg);
+        deviceContext.PSSetShaderResources(StarSlot, 1, nullSRV);
+        deviceContext.PSSetShaderResources(StarSlot, 1, &m_textureFromImg);
     }
 }
 

@@ -1,40 +1,48 @@
 #pragma once
 #include "Prerequisites.h"
 
+
+/// <summary>
+/// This class is in charge of generatting new window
+/// </summary>
 class Window
 {
 public:
-	Window(); // Constructor predeterminado
-	~Window(); // Destructor predeterminado
+	Window();
+	~Window();
 
 	/// <summary>
-	/// The method is in charge of generating a window
+	/// The method is in charge of generate a window
 	/// </summary>
 	/// <param name="hInstance"> A single ID for the window / Copy of the resource </param>
-	/// <param name="nCmdShow"> Command List Window </param>
-	/// <param name="wndproc"> Input bridge </param>
+	/// <param name="nCmdShow"> Command list window </param>
+	/// <param name="wndproc"> Input Bridge </param>
 	/// <returns></returns>
 	HRESULT
-		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc); // Función para inicializar la ventana
+		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
 	void
-		update(); // Función para actualizar la ventana
+		update();
 
 	void
-		render(); // Función para renderizar la ventana
+		render();
 
 	void
-		destroy(); // Función para destruir la ventana
+		destroy();
 
 public:
-	unsigned int m_width; // Ancho de la ventana
-	unsigned int m_height; // Alto de la ventana
-	HWND m_hWnd = nullptr; // Identificador de la ventana
-
+	// This is in charge to close the window
+	HWND m_hWnd = nullptr;
+	// m_width is a parameter to control the width of the screen
+	unsigned int m_width;
+	// m_height is a parameter to control the height of the screen
+	unsigned int m_height;
 private:
-
-	HINSTANCE m_hInst = nullptr; // Identificador de la instancia de la aplicación
-	RECT m_rect; // Rectángulo para el tamaño de la ventana
-
-	std::string n_windowName = "FlamesEngine"; // Nombre de la ventana
+	HINSTANCE m_hInst = nullptr;
+	// IDK
+	RECT m_rect;
+	// Declare the window name 
+	std::string m_WindowName = "Direct3D 11 Tutorial 7";
 };
+
+
